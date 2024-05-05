@@ -1,0 +1,16 @@
+
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-right: 40px;  /* Add some space from the right edge */
+}
+
+.user-info p {
+    margin-right: 10px;  /* Add some space between the text and the button */
+    display: inline-block;
+}
+
+.user-info form {
+    display: inline-block;
+    margin: 0;  /* Ensure no extra space is added around the form */
+}

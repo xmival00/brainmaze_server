@@ -1,0 +1,94 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+.topbar {
+    display: flex;
+    justify-content: flex-end;  /* Aligns children to the right */
+    align-items: center;
+    background-color: #f1f1f1;
+    padding: 1px 10px;
+    border-bottom: 1px solid #ccc;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+
+.main-content {
+    display: flex;
+    margin-top: 3%; /* Adjusted to accommodate the topbar height */
+    margin-left: 200px;
+    height: 97%; /* Adjusted height calculation */
+    flex-direction: column; /* This is crucial for the vertical resizer */
+}
+
+
+main-panel-top, .main-panel-bottom {
+    flex-grow: 1; /* Allows panels to grow and take available space */
+    overflow: hidden; /* Ensures content does not overflow the bounds of the panels */
+}
+
+.main-panel-top {
+    display: flex;
+    flex-direction: row; /* Ensure horizontal layout */
+    height: 70%;
+}
+
+
+.main-panel-left, .main-panel-right {
+    flex-grow: 1; /* Ensure panels grow equally */
+    min-width: 100px; /* Minimum width to prevent panels from disappearing */
+}
+
+.main-panel-left {
+    background-color: #f9f9f9;
+}
+.main-panel-right {
+    background-color: #00f9f9;
+}
+
+.resizerVertical {
+    flex: 0 0 4px; /* Do not grow or shrink, and stay 4px thick */
+    background: #ccc;
+    cursor: ew-resize;
+    z-index: 10;
+}
+
+.resizerHorizontal {
+    flex: 0 0 4px; /* Do not grow or shrink, and stay 4px thick */
+    background: #ccc;
+    cursor: ns-resize;
+    z-index: 10;
+}
+
+/*.main-panel-bottom {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    background-color: #f9f900;*/
+/*    padding: 20px;*/
+/*    height: 30%;*/
+/*}*/
+
+.main-panel-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Align children to stretch across the width */
+    width: 100%; /* Ensure it takes the full width of its parent */
+    height: auto; /* Adjust height as needed */
+}
+
+#eeg-canvas {
+    width: 100%; /* Canvas takes the full width */
+    height: 200px; /* Fixed height */
+}
+
+#eeg-slider {
+    width: 100%; /* Slider takes the full width */
+}
+
+

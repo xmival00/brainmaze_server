@@ -1,0 +1,68 @@
+<!-- subj_info.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Patient List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/patient_list.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Patient Information</h1>
+        <div class="dropdown mb-3">
+            <select name="subjects" id="subject-dropdown" class="form-control">
+                <option value="">Select a patient</option>
+                <!-- Additional options can be dynamically added here -->
+            </select>
+        </div>
+        <div id="patient-details">
+            <p><strong>Last Recording Time:</strong> <span id="last-recording-time">Select a patient</span></p>
+            <p><strong>Battery Status:</strong> <span id="battery-status">Select a patient</span></p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+        // Load subjects dynamically
+        $.ajax({
+            url: '/list-subjects',  // Ensure this route is defined in your Flask app
+            type: 'GET',
+            success: function(data) {
+                data.forEach(function(subject) {
+                    $('#subject-dropdown').append($('<option></option>').val(subject.id).html(subject.id));  // Assuming subjects have names
+                });
+            },
+            error: function() {
+                console.log('Error loading subjects');
+            }
+        });
+
+        // Fetch details for the selected subject
+        $('#subject-dropdown').change(function() {
+            var selectedId = $(this).val();
+            if (!selectedId) {
+                $('#last-recording-time').text('N/A');
+                $('#battery-status').text('N/A');
+                return;
+            }
+            $.ajax({
+                url: '/get-subject-info/' + selectedId,  // Ensure this route is defined in your Flask app
+                type: 'GET',
+                success: function(data) {
+                    $('#last-recording-time').text(data.last_recorded_time);
+                    $('#battery-status').text(data.battery_status);
+                },
+                error: function(response) {
+                    alert('Error: ' + response.responseText);
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html>
+
+
+
+
