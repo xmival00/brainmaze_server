@@ -15,10 +15,6 @@
                 <!-- Additional options can be dynamically added here -->
             </select>
         </div>
-        <div id="patient-details">
-            <p><strong>Last Recording Time:</strong> <span id="last-recording-time">Select a patient</span></p>
-            <p><strong>Battery Status:</strong> <span id="battery-status">Select a patient</span></p>
-        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -42,8 +38,6 @@
         $('#subject-dropdown').change(function() {
             var selectedId = $(this).val();
             if (!selectedId) {
-                $('#last-recording-time').text('N/A');
-                $('#battery-status').text('N/A');
                 return;
             }
             $.ajax({

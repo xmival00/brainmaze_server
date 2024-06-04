@@ -10,52 +10,73 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
+
+
     <div class="main-menu">
         <ul>
             <li><a href="{{ url_for('index') }}">Home</a></li>
         </ul>
     </div>
-
+    <div class="topbar">
+        <div class="user-info">
+            <p>User: <span>{{ current_user.username }}</span>   </p>
+            <form action="{{ url_for('logout') }}" method="post" style="margin: 0;">
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
     <div class="main-content">
 
         <div class="main-panel-top">
             <div class="main-panel-left">
                 <div class="container">
-                    <h1>Patient Information</h1>
+                                        <h1>Patient Information</h1>
                     <div class="dropdown mb-3">
                         <select name="subjects" id="subject-dropdown" class="form-control">
                             <option value="">Select a patient</option>
                             <!-- Additional options can be dynamically added here -->
                         </select>
                     </div>
-                    <div id="patient-details">
-                        <p><strong>Last Recording Time:</strong> <span id="last-recording-time">Select a patient</span></p>
-                        <p><strong>Battery Status:</strong> <span id="battery-status">Select a patient</span></p>
-                    </div>
-                    <button id="load-eeg-btn" class="btn btn-primary">Visualize EEG</button>
+
+<!--                    <button id="load-eeg-btn" class="btn btn-primary">Visualize EEG</button>-->
                 </div>
             </div>
 
             <div class="resizerVertical" id="drag-resizer-vertical"></div> <!-- Draggable divider -->
 
             <div class="main-panel-right">
-                <p>Visualization Panel (Use JavaScript or Dash here)</p>
+                <table id="data-table" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <!-- Headers will be dynamically inserted -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data rows will be dynamically populated -->
+                    </tbody>
+                </table>
             </div>
         </div>
 
         <div class="resizerHorizontal" id="drag-resizer-horizontal"></div> <!-- Draggable divider -->
 
         <div class="main-panel-bottom">
-<!--            <canvas id="eeg-canvas" width="800" height="200"></canvas>-->
-<!--            <canvas id="eeg-canvas" style="width: 100%; height: 200px;"></canvas>-->
             <div id="eeg-plot" style="width: 100%; height: 400px;"></div>
             <input type="range" id="eeg-slider" min="0" max="135" step="1" value="0" style="width: 100%;">
         </div>
 
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+
+<!--    <script src="https://cdn.datatables.net/colreorder/1.5.5/js/dataTables.colReorder.min.js"></script>-->
+<!--    <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.5.5/css/colReorder.dataTables.min.css">-->
+
+
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
 
     <script src="{{ url_for('static', filename='js/resizable.js') }}"></script>
     <script src="{{ url_for('static', filename='js/subject_info.js') }}"></script>

@@ -1,9 +1,0 @@
-<!-- templates/user_info.html -->
-<div class="topbar">
-    <div class="user-info">
-        <p>User: <span>{{ current_user.username }}</span>   </p>
-        <form action="{{ url_for('logout') }}" method="post" style="margin: 0;">
-            <button type="submit">Logout</button>
-        </form>
-    </div>
-</div>

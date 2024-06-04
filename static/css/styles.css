@@ -20,11 +20,12 @@ body, html {
 
 
 .main-content {
-    display: flex;
+    /*display: flex;*/
     margin-top: 3%; /* Adjusted to accommodate the topbar height */
     margin-left: 200px;
     height: 97%; /* Adjusted height calculation */
-    flex-direction: column; /* This is crucial for the vertical resizer */
+    flex-direction: column; /* This is crucial for the vertical resizer */,
+
 }
 
 
@@ -39,7 +40,6 @@ main-panel-top, .main-panel-bottom {
     height: 70%;
 }
 
-
 .main-panel-left, .main-panel-right {
     flex-grow: 1; /* Ensure panels grow equally */
     min-width: 100px; /* Minimum width to prevent panels from disappearing */
@@ -50,7 +50,11 @@ main-panel-top, .main-panel-bottom {
 }
 .main-panel-right {
     background-color: #00f9f9;
+    overflow-x: auto; /* Enables horizontal scrolling if needed */
+    overflow-y: auto;
+    height: 100%; /* Sets the height to fill the container */
 }
+
 
 .resizerVertical {
     flex: 0 0 4px; /* Do not grow or shrink, and stay 4px thick */
@@ -66,13 +70,6 @@ main-panel-top, .main-panel-bottom {
     z-index: 10;
 }
 
-/*.main-panel-bottom {*/
-/*    display: flex;*/
-/*    flex-direction: row;*/
-/*    background-color: #f9f900;*/
-/*    padding: 20px;*/
-/*    height: 30%;*/
-/*}*/
 
 .main-panel-bottom {
     display: flex;
@@ -91,4 +88,6 @@ main-panel-top, .main-panel-bottom {
     width: 100%; /* Slider takes the full width */
 }
 
-
+.selected {
+    background-color: #d9edf7;  /* Light blue color, adjust as needed */
+}
