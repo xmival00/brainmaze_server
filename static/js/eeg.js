@@ -15,10 +15,11 @@ $(document).ready(function() {
     $('#eeg-slider').on('input change', function() {
         const startSecond = $(this).val();
         const windowLength = 15;  // Set this as desired
+        console.log($('#eeg-plot').width())
         $.get('/get-eeg-window', {
             start_second: startSecond,
             window_length: windowLength,
-            canvas_width: $('#eeg-plot').width()
+            canvas_width: parseInt($('#eeg-plot').width())
         }, function(data) {
             drawPlot(data);
         }).fail(function() {
@@ -160,6 +161,7 @@ $(document).ready(function() {
         };
 
         Plotly.newPlot('eeg-plot', [trace_recording1, trace_recording2, trace_window1, trace_window2], layout, config);
+        $('#loading').addClass('invisible');
     }
 
 });

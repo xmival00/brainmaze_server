@@ -1,0 +1,12 @@
+flask
+flask-cors
+flask-login
+flask-sqlalchemy
+scipy
+numpy
+pandas
+pytz
+scipy
+bitstring
+tqdm
+cryptography
