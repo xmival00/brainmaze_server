@@ -7,64 +7,80 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
 
-
-    <div class="main-menu">
-        <ul>
-            <li><a href="{{ url_for('index') }}">Home</a></li>
-        </ul>
-    </div>
-    <div class="topbar">
-        <div class="user-info">
-            <p>User: <span>{{ current_user.username }}</span>   </p>
-            <form action="{{ url_for('logout') }}" method="post" style="margin: 0;">
-                <button type="submit">Logout</button>
-            </form>
-        </div>
-    </div>
     <div class="main-content">
 
-        <div class="main-panel-top">
-            <div class="main-panel-left">
-                <div class="container">
-                                        <h1>Patient Information</h1>
-                    <div class="dropdown mb-3">
-                        <select name="subjects" id="subject-dropdown" class="form-control">
-                            <option value="">Select a patient</option>
-                            <!-- Additional options can be dynamically added here -->
-                        </select>
-                    </div>
-
-<!--                    <button id="load-eeg-btn" class="btn btn-primary">Visualize EEG</button>-->
+        <div class="row h-100">
+            <div class="col-1">
+                <div class="main-menu">
+                    <ul>
+                        <li><a href="{{ url_for('index') }}">Home</a></li>
+                    </ul>
                 </div>
             </div>
 
-            <div class="resizerVertical" id="drag-resizer-vertical"></div> <!-- Draggable divider -->
+            <div class="col-11">
+                <div class="topbar">
+                    <div class="user-info m-1">
+                        <p class="mb-0">User: <span>{{ current_user.username }}</span>   </p>
+                        <form action="{{ url_for('auth.logout') }}" method="post" class="m-0">
+                            <button type="submit" class="btn btn-danger btn-sm">Logout</button>
+                        </form>
+                    </div>
+                </div>
 
-            <div class="main-panel-right">
-                <table id="data-table" class="display" style="width:100%">
-                    <thead>
-                        <tr>
-                            <!-- Headers will be dynamically inserted -->
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Data rows will be dynamically populated -->
-                    </tbody>
-                </table>
+                <div class="row mt-1 main-panel-top">
+                        <div class="col-4">
+                            <div class="main-panel-left">
+                                <h1>Patient Information</h1>
+                                <select name="subjects" id="subject-dropdown" class="form-select">
+                                    <option value="" selected disabled>Select a patient</option>
+                                    <!-- Additional options can be dynamically added here -->
+                                </select>
+                
+                                <!-- <button id="load-eeg-btn" class="btn btn-primary">Visualize EEG</button>-->
+                            </div>
+                        </div>
+
+                        <div class="col-8">
+                            <div class="resizerVertical" id="drag-resizer-vertical"></div> <!-- Draggable divider -->
+
+                            <div class="main-panel-right me-3">
+                                <table id="data-table" class="display">
+                                    <thead>
+                                        <tr>
+                                            <!-- Headers will be dynamically inserted -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Data rows will be dynamically populated -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="resizerHorizontal" id="drag-resizer-horizontal"></div> <!-- Draggable divider -->
+                        </div>                                            
+                </div>
+        
+                <div class="row">
+                    <div class="main-panel-bottom">
+                        <div id="eeg-plot" style="width: 100%; height: 400px;">
+                            <input type="range" id="eeg-slider" min="0" max="135" step="1" value="0" class="m-2 w-90 invisible">
+                            <div id="loading" class="text-center invisible">
+                                <strong>Loading data...</strong>
+                                <div class="spinner-border ms-5" role="status" aria-hidden="true"></div>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+
             </div>
+        
         </div>
-
-        <div class="resizerHorizontal" id="drag-resizer-horizontal"></div> <!-- Draggable divider -->
-
-        <div class="main-panel-bottom">
-            <div id="eeg-plot" style="width: 100%; height: 400px;"></div>
-            <input type="range" id="eeg-slider" min="0" max="135" step="1" value="0" style="width: 100%;">
-        </div>
-
+            
     </div>
 
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -81,6 +97,8 @@
     <script src="{{ url_for('static', filename='js/resizable.js') }}"></script>
     <script src="{{ url_for('static', filename='js/subject_info.js') }}"></script>
     <script src="{{ url_for('static', filename='js/eeg.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 
 </body>
 </html>

@@ -61,8 +61,12 @@ $(document).ready(function() {
             }
         });
     });
-        // Event listener for selecting a row
+    
+
+    // Event listener for selecting a row
     $('#data-table tbody').on('click', 'tr', function () {
+        $('#loading').removeClass('invisible');
+        $('#loading strong').text('Loading data...');
         var data = table.row(this).data();
         var pathRaw = data['path_raw']; // Ensure this key matches the column in your data
 
@@ -76,8 +80,10 @@ $(document).ready(function() {
         $.post('/init-eeg', { file_path: pathRaw }, function(response) {
             alert(response.message);
             totalSeconds = response.total_seconds;
+            $('#eeg-slider').removeClass('invisible');
             $('#eeg-slider').attr('max', totalSeconds - 15);
             $('#eeg-slider').val(1).trigger('change');
+            $('#loading strong').text('Constructing graph...');
         }).fail(function(xhr) {
             alert('Error initializing EEG data');
         });
