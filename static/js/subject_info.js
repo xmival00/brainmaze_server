@@ -29,13 +29,14 @@ $(document).ready(function() {
             url: '/get-subject-info/' + selectedId,
             type: 'GET',
             success: function(data) {
-                if (data.length > 0) {
+                
+                if (data.data.length > 0) {
                     if (!table) { // Initialize DataTable only if it hasn't been initialized before
-                        var columns = Object.keys(data[0]).map(function(key) {
+                        var columns = Object.keys(data.data[0]).map(function(key) {
                             return { title: key, data: key };
                         });
                         table = $('#data-table').DataTable({
-                            data: data,
+                            data: data.data,
                             columns: columns,
                             destroy: true,
                             retrieve: true,
@@ -44,13 +45,18 @@ $(document).ready(function() {
                         });
                     } else {
                         table.clear(); // Clear existing data
-                        table.rows.add(data); // Add new data
+                        table.rows.add(data.data); // Add new data
                         table.draw(); // Redraw the table
                     }
                 } else {
                     if (table) {
                         table.clear().draw();
                     }
+                }
+
+                const intervals = JSON.parse(data.intervals);
+                if (intervals.length > 0) {
+                    drawOverview(intervals, data.start, data.stop);
                 }
             },
             error: function() {
@@ -99,5 +105,60 @@ $(document).ready(function() {
     //         alert('Error initializing EEG data');
     //     });
     // });
+
+
+    function drawOverview(intervals, start, stop){
+        console.log(intervals);
+
+        // Step 1: Extract unique classes
+        const uniqueClasses = [...new Set(intervals.map(interval => interval.class))];
+        uniqueClasses.sort((a, b) => {
+            const aNum = parseInt(a.split('-')[0]);
+            const bNum = parseInt(b.split('-')[0]);
+            return aNum - bNum;
+        });
+        console.log(uniqueClasses);
+
+        // Step 2: Define a function to generate unique colors
+        function generateColor(classIndex) {
+            const hue = classIndex * (360 / uniqueClasses.length);
+            return `hsl(${hue}, 70%, 50%)`; // Use HSL color space for better differentiation
+        }
+
+        // Step 3: Map each class to its corresponding color
+        const classColors = {};
+        uniqueClasses.forEach((className, index) => {
+            classColors[className] = generateColor(index);
+        });
+
+        // Construct traces
+        const traces = intervals.map(interval => ({
+            type: 'scatter',
+            x: [interval.range0, interval.range1],
+            y: [interval.class, interval.class],
+            mode: 'lines',
+            name: interval.class,
+            line: { color: classColors[interval.class] }
+        }));
+
+        // Define layout
+        var layout = {
+            title: 'Channel Active',
+            xaxis: {
+                title: 'Time',
+                // autorange: true,
+                range: [start, stop],
+            },
+            yaxis: {
+                title: 'Channel',
+                categoryorder: 'array',
+                categoryarray: uniqueClasses
+            },
+            showlegend: false  // Turn off legend
+        };
+
+        // Plot the chart with layout
+        Plotly.newPlot('overview', traces, layout);
+    }
 
 });

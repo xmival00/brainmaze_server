@@ -12,7 +12,6 @@ blueprint_subjects = Blueprint('subjects', __name__)
 @login_required
 def list_subjects():
     # subjects = Subject.query.all()
-    print("here we are")
     subjects = SubjectList().subjects
     return jsonify(subjects)  # Adjust according to your data model
 
@@ -25,12 +24,13 @@ def get_patient_details(subject_id):
         return default_reply
 
     scanner = DataScanner(subject_id)
-    df = scanner.files.loc[scanner.files['subject'] == subject_id].reset_index(drop=True)
+    df = scanner.files.loc[scanner.files['subject'] == subject_id].reset_index(drop=True)    
     df['timestamp'] = [datetime.fromtimestamp(ts/1e6).astimezone(pytz.timezone('US/Central')) for ts in df['timestamp'].to_numpy()]
 
     df = df[[k for k in df.columns if not 'path_json' in k]]
     if df.__len__():
-        return jsonify(df.to_dict(orient='records'))
+        t_min, t_max, intervals = scanner.construct_chan_overview()
+        return jsonify({'start': t_min, 'stop': t_max, 'intervals':intervals, 'data':df.to_dict(orient='records')})
     else:
         return default_reply, 200
     

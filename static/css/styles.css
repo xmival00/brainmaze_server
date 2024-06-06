@@ -73,5 +73,5 @@ body, html {
 
 .dataTables_wrapper table.dataTable tbody th,
 .dataTables_wrapper table.dataTable tbody td {
-    font-size: 16px; /* Set the desired font size */
+    font-size: 15px; /* Set the desired font size */
 }
