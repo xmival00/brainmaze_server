@@ -86,10 +86,10 @@ $(document).ready(function() {
         $.post('/init-eeg', { file_path: pathRaw }, function(response) {
             alert(response.message);
             totalSeconds = response.total_seconds;
-            $('#eeg-slider').removeClass('invisible');
             $('#eeg-slider').attr('max', totalSeconds - 15);
-            $('#eeg-slider').val(1).trigger('change');
-            $('#loading strong').text('Constructing graph...');
+            $('#eeg-slider').val(1).trigger('mouseup');
+            
+            $('#loading strong').text('Constructing graph...');            
         }).fail(function(xhr) {
             alert('Error initializing EEG data');
         });

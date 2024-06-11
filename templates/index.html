@@ -69,7 +69,7 @@
         
                 <div class="row">
                     <div class="main-panel-bottom">
-                        <div id="eeg-plot" style="width: 100%; height: 400px;">
+                        <div id="eeg-plot">
                             <input type="range" id="eeg-slider" min="0" max="135" step="1" value="0" class="m-2 w-90 invisible">
                             <div id="loading" class="text-center invisible">
                                 <strong>Loading data...</strong>
@@ -97,8 +97,8 @@
 
 
     <script src="{{ url_for('static', filename='js/resizable.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/subject_info.js') }}"></script>
     <script src="{{ url_for('static', filename='js/eeg.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/subject_info.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 

@@ -12,7 +12,7 @@ $(document).ready(function() {
     //     });
     // });
 
-    $('#eeg-slider').on('input change', function() {
+    $('#eeg-slider').on('mouseup', function() {
         const startSecond = $(this).val();
         const windowLength = 15;  // Set this as desired
         console.log($('#eeg-plot').width())
@@ -22,6 +22,7 @@ $(document).ready(function() {
             canvas_width: parseInt($('#eeg-plot').width())
         }, function(data) {
             drawPlot(data);
+            $('#eeg-slider').removeClass('invisible');
         }).fail(function() {
             console.error('Error fetching EEG window');
         });
@@ -160,8 +161,10 @@ $(document).ready(function() {
             // staticPlot: true
         };
 
-        Plotly.newPlot('eeg-plot', [trace_recording1, trace_recording2, trace_window1, trace_window2], layout, config);
+        Plotly.react('eeg-plot', [trace_recording1, trace_recording2, trace_window1, trace_window2], layout, config);
+        
         $('#loading').addClass('invisible');
+        $('#eeg-slider').removeClass('invisible');
     }
 
 });

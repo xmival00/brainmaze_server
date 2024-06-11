@@ -52,13 +52,12 @@ body, html {
     height: auto; /* Adjust height as needed */
 }
 
-#eeg-canvas {
-    width: 100%; /* Canvas takes the full width */
-    height: 200px; /* Fixed height */
-}
-
 #eeg-slider {
     width: 98%; /* Slider takes the full width */
+}
+
+#eeg-plot{
+    height: 30vh;
 }
 
 .selected {
@@ -67,7 +66,7 @@ body, html {
 
 /* DataTables styling */
 .dataTables_wrapper {
-    height: 700px; /* Set the desired height */
+    height: 55vh; /* Set the desired height */
     overflow-y: auto; /* Add vertical scrollbar if needed */
 }
 
